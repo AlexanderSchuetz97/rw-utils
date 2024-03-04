@@ -1,0 +1,34 @@
+[package]
+name = "rw-utils"
+version = "0.0.1"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+authors = ["Alexander Schütz <aschuetz@protonmail.com>"]
+keywords = ["read", "write", "endian"]
+categories = ["encoding", "data-structures"]
+description = "Collection of utilities that enhance the rust Read and Write traits by providing various utility method for reading/writing structured data."
+readme = "README.md"
+homepage = "https://github.com/AlexanderSchuetz97/rw-utils"
+
+[lib]
+crate-type = ["rlib"]
+
+[features]
+all = ["num_read", "num_write", "string_read", "string_write", "to_write", "from_read", "leb128_read", "leb128_write"]
+num_read = []
+num_write = []
+string_read = []
+string_write = ["encoding"]
+from_read = []
+to_write = []
+leb128_read = []
+leb128_write = []
+
+[dependencies]
+encoding = { version = "0.2.33", optional = true }
+
+
+[dev-dependencies]
+encoding = "0.2.33"
+leb128 = "0.2.5"
+static_assertions = "1.1.0"
