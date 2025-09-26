@@ -130,5 +130,17 @@ fn test_jstring() -> io::Result<()> {
         assert_eq!(read, "abcä\u{20AC}\u{1F4A9}üabc");
     }
 
+    {
+        let mut vec: Vec<u8> = vec![];
+        vec.write_java_data_output_utf("ä")?;
+
+        //Taken from a java program
+        assert_eq!(vec, vec![0, 2, 195, 164]);
+
+        let mut cursor = Cursor::new(&vec);
+        let read = cursor.read_java_data_input_utf()?;
+        assert_eq!(read, "ä");
+    }
+
     return Ok(());
 }

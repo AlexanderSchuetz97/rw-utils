@@ -310,7 +310,7 @@ impl <T> StringRead for T where T: Read {
     }
 
     fn read_java_data_input_utf(&mut self) -> io::Result<String> {
-        let mut buf = vec![0u8; 2];
+        let mut buf = [0u8; 2];
         self.read_exact(buf.as_mut_slice())?;
         //this is always big endian in java
         let byte_count = (buf[0] as u16 >> 8 | buf[1] as u16) as usize;
@@ -331,7 +331,7 @@ impl <T> StringRead for T where T: Read {
                     index += 1;
                 }
                 12 | 13 => {
-                    if index + 2 >= buf.len() {
+                    if index + 2 > buf.len() {
                         return Err(Error::new(ErrorKind::InvalidData, "Invalid input"));
                     }
                     let c2 = buf[index + 1] as u32;
@@ -344,7 +344,7 @@ impl <T> StringRead for T where T: Read {
                     characters.push(v as u16)
                 }
                 14 => {
-                    if index + 3 >= buf.len() {
+                    if index + 3 > buf.len() {
                         return Err(Error::new(ErrorKind::InvalidData, "Invalid input"));
                     }
                     let c2 = buf[index + 1] as u32;
@@ -363,7 +363,7 @@ impl <T> StringRead for T where T: Read {
         }
 
         let result = String::from_utf16(&characters).map_err(|_| Error::new(ErrorKind::InvalidData, "Invalid input"))?;
-        return Ok(result);
+        Ok(result)
     }
 }
 

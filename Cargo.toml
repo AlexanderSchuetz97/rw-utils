@@ -1,6 +1,6 @@
 [package]
 name = "rw-utils"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 authors = ["Alexander Schütz <aschuetz@protonmail.com>"]
@@ -9,9 +9,14 @@ categories = ["encoding", "data-structures"]
 description = "Collection of utilities that enhance the rust Read and Write traits by providing various utility method for reading/writing structured data."
 readme = "README.md"
 homepage = "https://github.com/AlexanderSchuetz97/rw-utils"
+rust-version = "1.56.1"
+
 
 [lib]
 crate-type = ["rlib"]
+
+[package.metadata.docs.rs]
+all-features = true
 
 [features]
 all = ["num_read", "num_write", "string_read", "string_write", "to_write", "from_read", "leb128_read", "leb128_write"]
